@@ -3,7 +3,17 @@
   <head>
     <title>My First HTML5 Canvas</title>
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
     <style>
+      *{
+        color:white;
+        font-family: 'Open Sans', sans-serif;
+        font-size:1em;
+        text-align: center;
+      }
+      body{
+        overflow-x:hidden;
+      }
       canvas{
         position:absolute;
         top:0;
@@ -20,7 +30,7 @@
         font-size: 2em;
       }
       #main-content{
-        background-color: rgba(255,255,255,0.6);
+        background-color: rgba(44,44,44,0.6);
         max-width: 800px;
         margin: 0 auto;
       }
@@ -28,53 +38,178 @@
         box-sizing:border-box;
         width:50%;
         float:left;
+        height:280px;
+        padding: 15px;
+        overflow:hidden;
+        position:relative;
+      }
+      @media screen and (max-width: 768px){
+        .quadrant{
+          width: 100%;
+        }
       }
       #grid-container::after{
         clear:both;
         content:"";
         display:block;
       }
+      .padded-p{
+        padding:10px;
+      }
+      .fadein-element{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        -webkit-transform:translate(-50%,-50%);
+        -moz-transform:translate(-50%,-50%);
+      }
+      .quadrant > *{
+        transition: opacity 0.5s linear;
+      }
+      .faded{
+        opacity: 0;
+      }
     </style>
   </head>
   <body>
     <canvas id="canvas"></canvas>
-    <h1 id="main-title">Welcome to the Coder's Corner</h1>
     <div id="main-content">
-      lorem ipsum dolor et amellorem ipsum dolor et amellorem ipsum dolor et amellorem ipsum dolor et amellorem ipsum dolor et amellorem ipsum dolor et amellorem ipsum dolor et amellorem ipsum dolor et amellorem ipsum dolor et amellorem ipsum dolor et amel
+    <h1 id="main-title">Welcome to the Coder's Corner</h1>
+      <p class="padded-p">Welcome to FVI's coder corner. In this page, we aim to compile resources to help
+      the world learn to code. We want to bring coding to the masses because we believe
+      it's not only for mega genius nerds. In fact, we believe that if you <strong>don't</strong> learn
+      to code, <em>our code will take your job</em> and you will find yourself in the position
+      of a horseshoe maker in the 1930s.</p>
       <div id="grid-container">
-        <div class="quadrant"><h2>Project 1</h2><br><br><br><br><br></div>
-        <div class="quadrant"><h2>Project 2</h2><br><br><br><br><br></div>
-        <div class="quadrant"><h2>Project 3</h2><br><br><br><br><br></div>
-        <div class="quadrant"><h2>Project 4</h2><br><br><br><br><br></div>
+        <div class="quadrant">
+          <h2>Free intro Class</h2>
+          <p>
+            We use project-based learning, lectures and written explanations to take
+            you through the basics of HTML, CSS and JS programming, including sending
+            AJAX requests.
+          </p>
+          <p class="fadein-element faded">
+            <a href="http://www.fvi-grad.com">
+              Go to site</a></p>
+        </div>
+        
+        <div class="quadrant" data-hover-content="">
+          <h2>Drill Sergeant App</h2>
+          <p><em>In Beta Testing.</em> This app is designed to allow students to drill
+          Javascript Syntax until it becomes second nature. We believe that most online
+          resources focus too much on explanation and not enough on practice.</p>
+          <div class="fadein-element faded">
+            <a href="http://www.fvi.edu/coders_corner/practice">
+              Practice now!
+            </a>
+          </div>
+        </div>
+        <div class="quadrant" data-hover-content="">
+          <h2>Student Projects</h2>
+          <p>See some of the coolest stuff our students are making. #careerhack your
+          way to success by filling your portfolio with awesome works like these.</p>
+          <div class="fadein-element faded">
+            <a href="http://www.fvi-grad.com/chat">
+              Firebase web Chat Client
+            </a>
+          </div>
+        </div>
+        <div class="quadrant" data-hover-content="">
+          <h2>FVI on other platforms</h2>
+          <p>Check us out
+            on YouTube for all kinds of coding gains. In particular, check out our
+          
+            Codecademy.com walkthrough and our <a href="">
+            mini projects series</a>.</p>
+          <p>Follow our head instructor at codewars.com
+          if you want to get more serious with your Javascript.</p>
+          <div class="fadein-element faded">
+            <a href="https://www.youtube.com/channel/UCPbWkXshrZghR5W7kF7s0mg">
+              YouTube Coding Channel
+            </a><br>
+            <a href="https://www.youtube.com/watch?v=wVBjwO3JdyU&list=PLkOcUOQbE6gaJpEanJNBQaATre7Ea3shN">
+              Codecademy.com Walkthrough
+            </a><br>
+            <a href="http://www.codewars.com/users/Swolebrain">
+              Codewars.com Page
+            </a>
+            
+          </div>
+        </div>
       </div>
     </div>
-    <script>
+    <script id="canvas-stuff">
       init();
-      animate();
+      Math.random()>0.9?animate2():animate();
       window.onresize = init;
-      
-      
       
       function init(){
         window.WIDTH = window.innerWidth;
-        if (document.body.clientHeight > window.innerHeight)
-          window.HEIGHT = document.body.clientHeight;
+        if (document.body.clientHeight > window.innerHeight){
+          window.HEIGHT = document.body.clientHeight+100;
+        }
         else  
           window.HEIGHT = window.innerHeight;
         window.ctx = document.getElementById("canvas").getContext("2d");
-        ctx.canvas.width = WIDTH;
-        ctx.canvas.height = HEIGHT;
+        ctx.canvas.width = window.WIDTH;
+        ctx.canvas.height = window.HEIGHT;
         ctx.fillStyle = "#333333";
         ctx.strokeStyle = "#E0E0E0";
       }
+      
       function animate(){
         ctx.fillRect(0,0,WIDTH,HEIGHT);
-        for (var i =0; i < 20; i++){
+        drawFractal(WIDTH/2,HEIGHT/2,WIDTH*.45);
+        
+      }
+      function animate2(){
+        ctx.fillRect(0,0,WIDTH,HEIGHT);
+        for (var i =0; i < 80; i++){
           ctx.strokeRect(Math.random()*WIDTH, Math.random()*HEIGHT, Math.random()*100, Math.random()*100);
         }
-        //ctx.strokeRect(step++, step++, 50, 50);
-        window.requestAnimationFrame(animate);
+        
+        setTimeout(function(){
+          window.requestAnimationFrame(animate2);
+        }, 100);
+        
       }
+      function drawFractal(x,y,r){
+        if (r < 4 ) return;
+        ctx.beginPath();
+        ctx.ellipse(x, y, r, r, 0, 0, 2 * Math.PI, false);
+        ctx.closePath();
+        ctx.stroke();
+        setTimeout(function(){
+          drawFractal(x-r,y,r/2);
+          setTimeout(function(){
+            drawFractal(x+r,y,r/2);
+            setTimeout(function(){
+              drawFractal(x,y+r,r/2);
+              setTimeout(function(){
+                drawFractal(x,y-r,r/2);
+              },5);
+            },5);
+          },5);
+        },5);
+          //drawFractal(x+r,y,r/2);
+          //drawFractal(x,y+r,r/2);
+          //drawFractal(x,y-r,r/2);  
+        
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script id="event-attacher">
+      
+      $(".quadrant").on("mouseenter mouseleave", function(e){
+        $(this).children().toggleClass("faded");
+        //$(this).children().not(".sliding-element").addClass("faded");
+        //$(this).find(".sliding-element").removeClass("faded");
+      });
+      /*$(".quadrant").on("mouseleave", function(e){
+        $(this).children().not(".sliding-element").removeClass("faded");
+        $(this).find(".sliding-element").addClass("faded");
+      });*/
     </script>
   </body>
 </html>
