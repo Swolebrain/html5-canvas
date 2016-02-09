@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My First HTML5 Canvas</title>
+    <title>FVI Coder's Corner</title>
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
     <style>
@@ -30,7 +30,7 @@
         font-size: 2em;
       }
       #main-content{
-        background-color: rgba(44,44,44,0.6);
+        background-color: rgba(0, 51, 82, 0.7);
         max-width: 800px;
         margin: 0 auto;
       }
@@ -38,7 +38,7 @@
         box-sizing:border-box;
         width:50%;
         float:left;
-        height:280px;
+        height:320px;
         padding: 15px;
         overflow:hidden;
         position:relative;
@@ -96,11 +96,11 @@
         
         <div class="quadrant" data-hover-content="">
           <h2>Drill Sergeant App</h2>
-          <p><em>In Beta Testing.</em> This app is designed to allow students to drill
+          <p><em>In Development.</em> This app is designed to allow students to drill
           Javascript Syntax until it becomes second nature. We believe that most online
           resources focus too much on explanation and not enough on practice.</p>
           <div class="fadein-element faded">
-            <a href="http://www.fvi.edu/coders_corner/practice">
+            <a href="http://www.fvi.edu/coders_corner/exercise-grader">
               Practice now!
             </a>
           </div>
@@ -110,8 +110,14 @@
           <p>See some of the coolest stuff our students are making. #careerhack your
           way to success by filling your portfolio with awesome works like these.</p>
           <div class="fadein-element faded">
-            <a href="http://www.fvi-grad.com/chat">
+            <a href="http://velozmontero.fvi-grad.com/chat">
               Firebase web Chat Client
+            </a>
+            <a href="http://velozmontero.fvi-grad.com/wiki-search">
+              Wikipedia reskinned
+            </a>
+            <a href="http://kikilin.fvi-grad.com/simple_drawing_complete/">
+              Simple Drawing App
             </a>
           </div>
         </div>
@@ -120,10 +126,10 @@
           <p>Check us out
             on YouTube for all kinds of coding gains. In particular, check out our
           
-            Codecademy.com walkthrough and our <a href="">
-            mini projects series</a>.</p>
-          <p>Follow our head instructor at codewars.com
-          if you want to get more serious with your Javascript.</p>
+            Codecademy.com walkthrough and our
+            mini projects series.</p>
+          <p>If you want JS problems to solve, follow our head instructor at codewars.com.</p>
+          <p>Also, remember to check out the podcasts and resources our partners have to offer.</p>
           <div class="fadein-element faded">
             <a href="https://www.youtube.com/channel/UCPbWkXshrZghR5W7kF7s0mg">
               YouTube Coding Channel
@@ -134,14 +140,16 @@
             <a href="http://www.codewars.com/users/Swolebrain">
               Codewars.com Page
             </a>
-            
+            <a href="https://www.takeupcode.com/podcast/">
+              The Take Up Code Podcast
+            </a>
           </div>
         </div>
       </div>
     </div>
     <script id="canvas-stuff">
       init();
-      Math.random()>0.9?animate2():animate();
+      
       window.onresize = init;
       
       function init(){
@@ -154,48 +162,41 @@
         window.ctx = document.getElementById("canvas").getContext("2d");
         ctx.canvas.width = window.WIDTH;
         ctx.canvas.height = window.HEIGHT;
-        ctx.fillStyle = "#333333";
-        ctx.strokeStyle = "#E0E0E0";
+        ctx.fillStyle = "#fafafa";
+        ctx.strokeStyle = "#028DEA";
+        Math.random()>0.3?animateSquares():animateCircle();
       }
       
-      function animate(){
+      function animateCircle(){
         ctx.fillRect(0,0,WIDTH,HEIGHT);
         drawFractal(WIDTH/2,HEIGHT/2,WIDTH*.45);
-        
       }
-      function animate2(){
+      function animateSquares(){
         ctx.fillRect(0,0,WIDTH,HEIGHT);
         for (var i =0; i < 80; i++){
           ctx.strokeRect(Math.random()*WIDTH, Math.random()*HEIGHT, Math.random()*100, Math.random()*100);
         }
         
         setTimeout(function(){
-          window.requestAnimationFrame(animate2);
+          window.requestAnimationFrame(animateSquares);
         }, 100);
         
       }
       function drawFractal(x,y,r){
         if (r < 4 ) return;
+        
         ctx.beginPath();
         ctx.ellipse(x, y, r, r, 0, 0, 2 * Math.PI, false);
         ctx.closePath();
         ctx.stroke();
         setTimeout(function(){
           drawFractal(x-r,y,r/2);
+          drawFractal(x+r,y,r/2);
           setTimeout(function(){
-            drawFractal(x+r,y,r/2);
-            setTimeout(function(){
-              drawFractal(x,y+r,r/2);
-              setTimeout(function(){
-                drawFractal(x,y-r,r/2);
-              },5);
-            },5);
-          },5);
-        },5);
-          //drawFractal(x+r,y,r/2);
-          //drawFractal(x,y+r,r/2);
-          //drawFractal(x,y-r,r/2);  
-        
+            drawFractal(x,y+r,r/2);
+            drawFractal(x,y-r,r/2);
+          },parseInt(Math.random()));
+        },parseInt(Math.random())); 
       }
     </script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -203,13 +204,7 @@
       
       $(".quadrant").on("mouseenter mouseleave", function(e){
         $(this).children().toggleClass("faded");
-        //$(this).children().not(".sliding-element").addClass("faded");
-        //$(this).find(".sliding-element").removeClass("faded");
       });
-      /*$(".quadrant").on("mouseleave", function(e){
-        $(this).children().not(".sliding-element").removeClass("faded");
-        $(this).find(".sliding-element").addClass("faded");
-      });*/
     </script>
   </body>
 </html>
