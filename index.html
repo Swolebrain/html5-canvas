@@ -4,84 +4,46 @@
     <title>FVI Coder's Corner</title>
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
-    <style>
-      *{
-        color:white;
-        font-family: 'Open Sans', sans-serif;
-        font-size:1em;
-        text-align: center;
-      }
-      body{
-        overflow-x:hidden;
-      }
-      canvas{
-        position:absolute;
-        top:0;
-        left:0;
-        z-index: -5;
-      }
-      #main-title, h2{
-        color:white;
-        font-family: 'Ubuntu', sans-serif;
-        text-align: center;
-        font-size: 4em;
-      }
-      h2{
-        font-size: 2em;
-      }
-      #main-content{
-        background-color: rgba(0, 51, 82, 0.7);
-        max-width: 800px;
-        margin: 0 auto;
-      }
-      .quadrant{
-        box-sizing:border-box;
-        width:50%;
-        float:left;
-        height:320px;
-        padding: 15px;
-        overflow:hidden;
-        position:relative;
-      }
-      @media screen and (max-width: 768px){
-        .quadrant{
-          width: 100%;
-        }
-      }
-      #grid-container::after{
-        clear:both;
-        content:"";
-        display:block;
-      }
-      .padded-p{
-        padding:10px;
-      }
-      .fadein-element{
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform:translate(-50%,-50%);
-        -webkit-transform:translate(-50%,-50%);
-        -moz-transform:translate(-50%,-50%);
-      }
-      .quadrant > *{
-        transition: opacity 0.5s linear;
-      }
-      .faded{
-        opacity: 0;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <canvas id="canvas"></canvas>
     <div id="main-content">
-    <h1 id="main-title">Welcome to the Coder's Corner</h1>
-      <p class="padded-p">Welcome to FVI's coder corner. In this page, we aim to compile resources to help
+    <h1 id="main-title">Welcome to the Coder's Corner @FVI</h1>
+      <p class="padded-p">Welcome to FVI's coder corner. This is the main page for
+        the Technology Department in Florida Vocational Institute. Besides telling you
+        a little bit about us, the main ourpose of this page is to compile resources to help
       the world learn to code. We want to bring coding to the masses because we believe
-      it's not only for mega genius nerds. In fact, we believe that if you <strong>don't</strong> learn
-      to code, <em>our code will take your job</em> and you will find yourself in the position
-      of a horseshoe maker in the 1930s.</p>
-      <div id="grid-container">
+      it's not only for mega genius nerds. In fact, we believe that if you <strong>don't</strong> 
+      learn to code, <em>our code will take your job</em> and you will find yourself in the position
+      of a horseshoe maker in the 1930s. (jobless and crying) </p>
+      <hr>
+      <h2>Our Faculty</h2>
+      <p>Our faculty has over 40 years of combined experience in programming and Computer Science</p>
+      <div class="grid-container" id="faculty-grid">
+        <div class="third">
+          <img src="img/Aaron.JPG" alt="Aaron Niskin">
+          <h2>Aaron Niskin</h2>
+          <h3>Instructor</h3>
+          <h3>amniskin@fvi.edu</h3>
+        </div>
+        <div class="third">
+          <img src="img/Moreno_Victor.jpg" alt="Victor Moreno">
+          <h2>Victor Moreno</h2>
+          <h3>Program Director</h3>
+          <h3>vmoreno@fvi.edu</h3>
+        </div>
+        <div class="third">
+          <img src="img/randy.JPG" alt="Randy Ferrer">
+          <h2>Randy Ferrer</h2>
+          <h3>Instructor</h3>
+          <h3>rferrer@fvi.edu</h3>
+        </div>
+      </div>
+      <hr>
+      <h2>Student's Resources</h2>
+      <p>(mouse over to reveal links)</p>
+      <div class="grid-container">
         <div class="quadrant">
           <h2>Free intro Class</h2>
           <p>
@@ -90,7 +52,7 @@
             AJAX requests.
           </p>
           <p class="fadein-element faded">
-            <a href="http://www.fvi-grad.com">
+            <a href="introclass/">
               Go to site</a></p>
         </div>
         
@@ -116,7 +78,7 @@
             <a href="http://velozmontero.fvi-grad.com/wiki-search">
               Wikipedia reskinned
             </a>
-            <a href="http://kikilin.fvi-grad.com/simple_drawing_complete/">
+            <a href="http://kikilin.fvi-grad.com/simple_drawing/">
               Simple Drawing App
             </a>
           </div>
@@ -139,7 +101,7 @@
             </a><br>
             <a href="http://www.codewars.com/users/Swolebrain">
               Codewars.com Page
-            </a>
+            </a><br>
             <a href="https://www.takeupcode.com/podcast/">
               The Take Up Code Podcast
             </a>
@@ -154,22 +116,37 @@
       
       function init(){
         window.WIDTH = window.innerWidth;
-        if (document.body.clientHeight > window.innerHeight){
-          window.HEIGHT = document.body.clientHeight+100;
-        }
-        else  
-          window.HEIGHT = window.innerHeight;
+        window.HEIGHT = window.innerHeight;
         window.ctx = document.getElementById("canvas").getContext("2d");
         ctx.canvas.width = window.WIDTH;
         ctx.canvas.height = window.HEIGHT;
         ctx.fillStyle = "#fafafa";
-        ctx.strokeStyle = "#028DEA";
-        Math.random()>0.3?animateSquares():animateCircle();
+        ctx.strokeStyle = "#2B90D9";
+        var sel = Math.floor(Math.random()*3);
+        switch (sel){
+          case 0: animateCircle(); break;
+          case 1: animateSquares(); break;
+          case 2: fractal2(); break;
+        }
+      }
+      function fractal2(){
+        var often = 5,
+          timeout = 0
+          circleR = WIDTH*.35;
+        ctx.fillRect(0,0,WIDTH,HEIGHT);
+        ctx.translate(WIDTH/2,HEIGHT/2);
+        for (var i = 0; i < 25; i++) {
+            for (var a = -45; a <= 45; a+=often) {
+                setTimeout( "drawTimeout("+a+")" ,100*timeout );
+                timeout++;
+            }
+        }
+        
       }
       
       function animateCircle(){
         ctx.fillRect(0,0,WIDTH,HEIGHT);
-        drawFractal(WIDTH/2,HEIGHT/2,WIDTH*.45);
+        drawFractal(WIDTH/2,HEIGHT/2,WIDTH*.35);
       }
       function animateSquares(){
         ctx.fillRect(0,0,WIDTH,HEIGHT);
@@ -184,20 +161,42 @@
       }
       function drawFractal(x,y,r){
         if (r < 4 ) return;
-        
+        var ctr = ctr || 0;
         ctx.beginPath();
         ctx.ellipse(x, y, r, r, 0, 0, 2 * Math.PI, false);
         ctx.closePath();
         ctx.stroke();
         setTimeout(function(){
+          ctr += 100;
           drawFractal(x-r,y,r/2);
           drawFractal(x+r,y,r/2);
           setTimeout(function(){
+            ctr += 100;
             drawFractal(x,y+r,r/2);
             drawFractal(x,y-r,r/2);
-          },parseInt(Math.random()));
-        },parseInt(Math.random())); 
+          },ctr);
+        },ctr); 
       }
+      function drawTimeout(a){
+          ctx.beginPath();
+          ctx.moveTo(0,circleR);
+          var radians = Math.PI/180*a;
+          var x = (circleR * Math.sin(radians)) / Math.sin(Math.PI/2 - radians);
+          ctx.lineTo(x,0);
+
+          if (Math.abs(a) == 45) {
+              ctx.strokeStyle="#2B90D9";
+              ctx.lineWidth=1;
+          } else if (a == 0) {
+              ctx.strokeStyle="#1B80C9";
+              ctx.lineWidth=0.5;
+          } else {
+              ctx.strokeStyle="#0B70B9";
+              ctx.lineWidth=0.2;
+          }
+          ctx.stroke();
+          ctx.rotate((Math.PI/180)*15);
+        }
     </script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script id="event-attacher">

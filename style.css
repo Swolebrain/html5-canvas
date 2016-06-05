@@ -1,0 +1,92 @@
+*{
+  color: #282c37;
+  font-family: 'Open Sans', sans-serif;
+  font-size:1rem;
+  text-align: center;
+}
+body{
+  overflow-x:hidden;
+}
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index: -5;
+}
+#main-title, h2{
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+  font-size: 4em;
+}
+h2{
+  font-size: 2em;
+}
+#main-content{
+  background-color: rgba(155, 174, 200, 0.7);
+  max-width: 800px;
+  margin: 0 auto;
+}
+.quadrant{
+  box-sizing:border-box;
+  width:50%;
+  float:left;
+  height:320px;
+  padding: 15px;
+  overflow:hidden;
+  position:relative;
+}
+.third{
+  box-sizing:border-box;
+  width:33.33333%;
+  float:left;
+  min-height:320px;
+  padding: 15px;
+  overflow:hidden;
+  position:relative;
+}
+.third img{
+  width:80%;
+  display:block;
+  margin: 0 auto;
+  border-radius: 100%;
+  border: 2px solid #028DEA;
+}
+@media screen and (max-width: 768px){
+  .quadrant{
+    width: 100%;
+  }
+}
+.grid-container::after{
+  clear:both;
+  content:"";
+  display:block;
+}
+.padded-p{
+  padding:10px;
+}
+.fadein-element{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  -webkit-transform:translate(-50%,-50%);
+  -moz-transform:translate(-50%,-50%);
+}
+.quadrant > *{
+  transition: all 0.5s linear;
+}
+.faded{
+  opacity: 0;
+}
+#faculty-grid h3{
+  margin:0 auto;
+  padding:0;
+}
+hr{
+  border: 2px solid #028DEA;
+  margin-top:35px;
+  margin-bottom: 35px;
+}
+.quadrant .fadein-element a{
+  line-height:1.75rem;
+}
