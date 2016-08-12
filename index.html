@@ -14,7 +14,7 @@
         the Technology Department in Florida Vocational Institute. Besides telling you
         a little bit about us, the main ourpose of this page is to compile resources to help
       the world learn to code. We want to bring coding to the masses because we believe
-      it's not only for mega genius nerds. In fact, we believe that if you <strong>don't</strong> 
+      it's not only for mega genius nerds. In fact, we believe that if you <strong>don't</strong>
       learn to code, <em>our code will take your job</em> and you will find yourself in the position
       of a horseshoe maker in the 1930s. (jobless and crying) </p>
       <hr>
@@ -22,10 +22,10 @@
       <p>Our faculty has over 40 years of combined experience in programming and Computer Science</p>
       <div class="grid-container" id="faculty-grid">
         <div class="third">
-          <img src="img/Aaron.JPG" alt="Aaron Niskin">
-          <h2>Aaron Niskin</h2>
+          <img src="img/Joe.jpg" alt="Joe Narvaez">
+          <h2>Joe Narvaez</h2>
           <h3>Instructor</h3>
-          <h3>amniskin@fvi.edu</h3>
+          <h3>jnarvaez@fvi.edu</h3>
         </div>
         <div class="third">
           <img src="img/Moreno_Victor.jpg" alt="Victor Moreno">
@@ -55,7 +55,7 @@
             <a href="introclass/">
               Go to site</a></p>
         </div>
-        
+
         <div class="quadrant" data-hover-content="">
           <h2>Drill Sergeant App</h2>
           <p><em>In Development.</em> This app is designed to allow students to drill
@@ -87,7 +87,7 @@
           <h2>FVI on other platforms</h2>
           <p>Check us out
             on YouTube for all kinds of coding gains. In particular, check out our
-          
+
             Codecademy.com walkthrough and our
             mini projects series.</p>
           <p>If you want JS problems to solve, follow our head instructor at codewars.com.</p>
@@ -111,9 +111,9 @@
     </div>
     <script id="canvas-stuff">
       init();
-      
+
       window.onresize = init;
-      
+
       function init(){
         window.WIDTH = window.innerWidth;
         window.HEIGHT = window.innerHeight;
@@ -141,9 +141,9 @@
                 timeout++;
             }
         }
-        
+
       }
-      
+
       function animateCircle(){
         ctx.fillRect(0,0,WIDTH,HEIGHT);
         drawFractal(WIDTH/2,HEIGHT/2,WIDTH*.35);
@@ -153,11 +153,11 @@
         for (var i =0; i < 80; i++){
           ctx.strokeRect(Math.random()*WIDTH, Math.random()*HEIGHT, Math.random()*100, Math.random()*100);
         }
-        
+
         setTimeout(function(){
           window.requestAnimationFrame(animateSquares);
         }, 100);
-        
+
       }
       function drawFractal(x,y,r){
         if (r < 4 ) return;
@@ -166,7 +166,7 @@
         ctx.ellipse(x, y, r, r, 0, 0, 2 * Math.PI, false);
         ctx.closePath();
         ctx.stroke();
-        setTimeout(function(){
+        /*setTimeout(function(){
           ctr += 100;
           drawFractal(x-r,y,r/2);
           drawFractal(x+r,y,r/2);
@@ -175,7 +175,11 @@
             drawFractal(x,y+r,r/2);
             drawFractal(x,y-r,r/2);
           },ctr);
-        },ctr); 
+        },ctr);*/
+        setTimeout(()=>drawFractal(x-r,y,r/2),3750/r);
+        setTimeout(()=>drawFractal(x+r,y,r/2),3250/r);
+        setTimeout(()=>drawFractal(x,y+r,r/2),2750/r);
+        setTimeout(()=>drawFractal(x,y-r,r/2),2250/r);
       }
       function drawTimeout(a){
           ctx.beginPath();
@@ -200,7 +204,7 @@
     </script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script id="event-attacher">
-      
+
       $(".quadrant").on("mouseenter mouseleave", function(e){
         $(this).children().toggleClass("faded");
       });
